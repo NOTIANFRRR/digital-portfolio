@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Registration Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <p class="back"><a href="index.html">&larr; Back to portfolio</a></p>
+  <h1>Registration Form</h1>
+
+  <div class="form-box">
+    <form id="register-form">
+      <div class="columns">
+        <div class="column">
+          <img class="logo" src="images/Logo.png" alt="School logo">
+          <h2>Personal Information</h2>
+
+          <label for="fullname">Full Name *</label>
+          <input type="text" id="fullname" name="fullname" placeholder="Your Name" required>
+
+          <label>Gender *</label>
+          <input type="radio" id="male" name="gender" value="male" required>
+          <label for="male" class="normal">Male</label>
+          <input type="radio" id="female" name="gender" value="female">
+          <label for="female" class="normal">Female</label>
+
+          <label for="age">Age *</label>
+          <input type="number" id="age" name="age" placeholder="18" min="15" max="60" required>
+
+          <label for="birthdate">Date of Birth *</label>
+          <input type="date" id="birthdate" name="birthdate" required>
+
+          <h2>University Details</h2>
+
+          <label for="studentid">Student ID *</label>
+          <input type="text" id="studentid" name="studentid" placeholder="1234567" pattern="[0-9]{7}" title="Format: 1234567" required>
+
+          <label for="faculty">Faculty *</label>
+          <select id="faculty" name="faculty" required>
+            <option value="">Select a faculty</option>
+            <option value="cenar">College of Engineering and Architecture (CENAR)</option>
+            <option value="citec">College of Information Technology, Entertainment and Communication (CITEC)</option>
+            <option value="ceas">College of Education, Arts and Sciences (CEAS)</option>
+            <option value="cmt">College of Management and Tourism (CMT)</option>
+            <option value="ccje">College of Criminal Justice Education (CCJE)</option>
+          </select>
+
+          <label for="department">Department *</label>
+          <select id="department" name="department" required disabled>
+            <option value="">Select a faculty first</option>
+          </select>
+        </div>
+        <div class="column">
+          <h2>Contact Information</h2>
+
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" placeholder="YourEmail@gmail.com" required>
+
+          <label for="mobile">Mobile Number *</label>
+          <input type="tel" id="mobile" name="mobile" placeholder="09123456789" pattern="[0-9]{11}" title="Enter 11 digits" required>
+
+          <label for="address">Home Address</label>
+          <textarea id="address" name="address" rows="3" placeholder="Street, barangay, city"></textarea>
+
+          <h2>Account Setup</h2>
+
+          <label for="username">Username *</label>
+          <input type="text" id="username" name="username" placeholder="Enter username" minlength="4" maxlength="20" pattern="[A-Za-z0-9_]+" title="Letters, numbers and underscores only" required autocomplete="username">
+
+          <label for="password">Password *</label>
+          <input type="password" id="password" name="password" placeholder="At least 8 characters" minlength="8" required>
+
+          <h2>Career Counseling Service</h2>
+          <p style="color: #e8c766;">Career counseling is a 45-minute free service provided by the university to advise students on the best career choices.</p>
+
+          <input type="checkbox" id="counseling" name="counseling">
+          <label for="counseling" class="normal">I want to book the career counseling session</label>
+
+          <p id="message" class="message"></p>
+          <button type="submit">Submit</button>
+          <button type="reset">Reset</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  <script src="register.js"></script>
+</body>
+</html>

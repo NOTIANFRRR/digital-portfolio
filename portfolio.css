@@ -1,0 +1,341 @@
+:root {
+  --u: round(down, calc(min(100vw, 177vh) / 480), 1px);
+  --t: round(up, calc(max(100vw / 480, 100vh / 270)), 1px);
+  --wood: #6b4226;
+  --ink: #3b2414;
+  --paper: #f3e2b3;
+  --gold: #ffd84d;
+}
+
+@media (orientation: portrait) {
+  :root {
+    --u: round(nearest, calc(min(100vw / 200, 100vh / 340 - 0.2px)), 1px);
+  }
+}
+
+body {
+  margin: 0;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--wood) url("art/table.png") center / cover;
+  background-size: calc(480 * var(--t)) calc(270 * var(--t));
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  font-family: "VT323", monospace;
+  font-size: 22px;
+  color: var(--ink);
+}
+
+.table {
+  position: fixed;
+  inset: 0;
+}
+
+.object {
+  position: absolute;
+  width: calc(var(--w) * var(--u));
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#phone { --w: 38; --h: 62; left: 10%; top: 12%; }
+#trophy { --w: 58; --h: 84.17; right: 6%; top: 8%; }
+#idcard { --w: 52; --h: 58.11; right: 7%; bottom: 10%; }
+#map { --w: 320; --h: 180; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+
+@media (orientation: portrait) {
+  #phone { --w: 22; --h: 35.9; left: 9%; top: 9%; }
+  #trophy { --w: 34; --h: 49.34; right: 9%; top: 9%; }
+  #idcard { --w: 31; --h: 34.64; right: auto; left: 50%; bottom: 6%; transform: translateX(-50%); }
+  #map { --w: 160; --h: 90; top: 46%; }
+}
+
+.art {
+  display: block;
+}
+
+.object img {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.object:hover img,
+.object:focus-visible img {
+  filter: brightness(1.15);
+}
+
+#phone, #trophy, #idcard {
+  pointer-events: none;
+}
+
+#phone::before, #trophy::before, #idcard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  clip-path: var(--hit);
+}
+
+#phone .art, #trophy .art, #idcard .art {
+  position: relative;
+  height: calc(var(--h) * var(--u));
+}
+
+#phone img, #trophy img, #idcard img {
+  position: absolute;
+  left: calc(var(--ox) * -100%);
+  top: calc(var(--oy) * -100%);
+  width: calc(var(--fw) * 100%);
+  max-width: none;
+}
+
+#phone {
+  --ox: 0.1266;
+  --oy: 0.0312;
+  --fw: 1.2903;
+  --hit: polygon(33% -1%, 31% 17%, 4% 22%, -2% 38%, 35% 98%, 54% 101%, 97% 93%, 102% 79%, 66% 18%);
+}
+
+#trophy {
+  --ox: 0.4812;
+  --oy: 0.1036;
+  --fw: 1.988;
+  --hit: polygon(65% -1%, 33% 0%, 6% 12%, 6% 23%, 29% 49%, 5% 66%, -2% 88%, 21% 100%, 57% 99%, 57% 89%, 80% 74%, 66% 48%, 102% 34%, 102% 21%);
+}
+
+#idcard {
+  --ox: 0.4315;
+  --oy: 0.1295;
+  --fw: 1.8708;
+  --hit: polygon(32% -2%, -2% 83%, 71% 102%, 102% 15%);
+}
+
+.object:hover .art,
+.object:focus-visible .art {
+  animation: hop 0.5s steps(2) infinite;
+}
+
+@keyframes hop {
+  50% { transform: translateY(calc(var(--u) * -3)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .object:hover .art,
+  .object:focus-visible .art {
+    animation: none;
+  }
+}
+
+.object:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 6px;
+}
+
+.tag {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  margin-top: 8px;
+  padding: 5px 8px;
+  white-space: nowrap;
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--gold);
+  font: 10px "Press Start 2P", monospace;
+  opacity: 0;
+}
+
+.object:hover .tag,
+.object:focus-visible .tag,
+.object.missing .tag {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .tag { opacity: 1; pointer-events: auto; }
+}
+
+.object.missing .art {
+  height: calc(var(--h) * var(--u));
+  box-sizing: border-box;
+  border: 3px dashed #fff;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  font: clamp(8px, calc(var(--u) * 3), 12px) / 1.6 "Press Start 2P", monospace;
+  white-space: pre-line;
+}
+
+.object.missing .art::before {
+  content: attr(data-art);
+}
+
+.object.missing img {
+  display: none;
+}
+
+.pixel-button, .close {
+  border: 3px solid var(--ink);
+  background: var(--gold);
+  color: var(--ink);
+  font: 10px "Press Start 2P", monospace;
+  cursor: pointer;
+}
+
+.pixel-button {
+  text-decoration: none;
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 12px;
+}
+
+.pixel-button:hover, .close:hover {
+  background: #fff;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.window {
+  position: relative;
+  box-sizing: border-box;
+  width: min(94vw, 640px);
+  max-height: 92vh;
+  overflow-y: auto;
+  padding: 26px 24px 20px;
+  background: var(--paper);
+}
+
+.window.wide {
+  width: min(96vw, 1100px);
+}
+
+.frame {
+  border: calc(var(--u) * 6) solid var(--ink);
+  border-image: url("art/frame.png") 6 / calc(var(--u) * 6) / 0 stretch;
+  image-rendering: pixelated;
+}
+
+.close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 32px;
+  height: 32px;
+}
+
+.window h2 { font: 14px / 1.6 "Press Start 2P", monospace; margin: 0 0 12px; }
+.window h3 { font: 12px / 1.6 "Press Start 2P", monospace; margin: 0 0 8px; }
+.window h4 { margin: 12px 0 2px; font-size: 24px; }
+.window a { color: #7a1f2b; }
+.window ul { margin: 4px 0; padding-left: 22px; }
+
+.map-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.map-box {
+  position: relative;
+  flex: 2 1 380px;
+  aspect-ratio: 16 / 9;
+  background: #7fb2d6;
+  container-type: inline-size;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.map-box img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.map-box.missing::before {
+  content: attr(data-art);
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  white-space: pre-line;
+  color: #fff;
+  font: 9px / 1.6 "Press Start 2P", monospace;
+  text-shadow: 1px 1px #000;
+}
+
+.map-box.missing > .base {
+  display: none;
+}
+
+.layer.hot, .layer.selected {
+  filter: brightness(1.3) drop-shadow(0 0 1px var(--gold)) drop-shadow(0 0 2px var(--gold));
+}
+
+.zone {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 2px dashed #fff;
+  background: rgba(60, 120, 60, 0.6);
+  color: #fff;
+  text-align: center;
+  font-size: clamp(9px, 3cqw, 20px);
+  line-height: 1.1;
+  pointer-events: none;
+}
+
+.zone[hidden] {
+  display: none;
+}
+
+.zone small {
+  font: clamp(4px, 1.1cqw, 7px) / 1.6 "Press Start 2P", monospace;
+}
+
+.zone.hot, .zone.selected {
+  background: rgba(255, 216, 77, 0.8);
+  color: var(--ink);
+}
+
+.map-info {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+img[src*="photos/"] {
+  width: 100% !important;
+  height: 300px !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block;
+}

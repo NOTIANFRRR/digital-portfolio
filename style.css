@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap");
+
+body {
+  font-family: "Plus Jakarta Sans", Arial, sans-serif;
+  margin: 0;
+  color: #f5e6e8;
+  background: radial-gradient(circle at 80% 40%, #5a1228, #3b0a1a 60%, #2a0713);
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container, .form-box {
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(232, 199, 102, 0.3);
+  border-radius: 16px;
+  width: 900px;
+  max-width: 94%;
+  box-sizing: border-box;
+  margin: 20px auto;
+}
+.container { padding: 20px 30px; }
+
+h1, h2 { font-family: "Cinzel", Georgia, serif; color: #e8c766; }
+h1 { text-align: center; }
+a { color: #f0d58a; }
+
+.logo { width: 200px; height: auto; clip-path: circle(48%); }
+
+.columns { display: flex; gap: 40px; padding: 20px 30px; }
+.column { width: 50%; }
+
+label { font-weight: bold; display: block; margin: 12px 0 4px; }
+.normal { font-weight: normal; display: inline; }
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"],
+input[type="tel"], input[type="date"], select, textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #c9a9b0;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: white;
+  color: #2a0713;
+}
+
+button {
+  padding: 10px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  margin-top: 20px;
+  cursor: pointer;
+  background: linear-gradient(to right, #d4af37, #f0d58a);
+  color: #3b0a1a;
+}
+button[type="reset"] { background: none; border: 1px solid #8a5a66; color: white; }
+
+.message { min-height: 1.4em; color: #ffb3b3; font-weight: bold; }
+.message.ok { color: #a8f0a8; }
+.back { margin: 20px 5%; }
+
+@media (max-width: 700px) {
+  .columns { flex-direction: column; padding: 10px 20px 20px; }
+  .column { width: 100%; }
+}
